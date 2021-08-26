@@ -15,6 +15,12 @@ class CreateSellersTable extends Migration
     {
         Schema::create('sellers', function (Blueprint $table) {
             $table->id();
+            $table->string('names',100);
+            $table->string('doc_number');
+            $table->string('area');
+            $table->string('address');
+            $table->string('email');
+            $table->string('phone');
             $table->timestamps();
         });
     }
