@@ -15,6 +15,8 @@ class CreateHayPalmentsTable extends Migration
     {
         Schema::create('hay_palments', function (Blueprint $table) {
             $table->id();
+            $table->string('names');
+            $table->foreignId('id_bills')->constrained('bills');
             $table->timestamps();
         });
     }

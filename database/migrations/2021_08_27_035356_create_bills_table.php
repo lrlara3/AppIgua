@@ -15,6 +15,12 @@ class CreateBillsTable extends Migration
     {
         Schema::create('bills', function (Blueprint $table) {
             $table->id();
+            $table->date('sale_date');
+            $table->string('payment_method');
+            $table->integer('cant');
+            $table->string('status');
+            $table->foreignId('id_clients')->constrained('clients');
+            $table->foreignId('id_sellers')->constrained('sellers');
             $table->timestamps();
         });
     }

@@ -14,7 +14,12 @@ class CreateInputsTable extends Migration
     public function up()
     {
         Schema::create('inputs', function (Blueprint $table) {
+           
             $table->id();
+            $table->string('names');
+            $table->integer('cant');
+            $table->integer('value');
+            $table->foreignId('id_pursaches')->constrained('purchases');
             $table->timestamps();
         });
     }

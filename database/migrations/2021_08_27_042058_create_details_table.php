@@ -15,6 +15,10 @@ class CreateDetailsTable extends Migration
     {
         Schema::create('details', function (Blueprint $table) {
             $table->id();
+            $table->string('names');
+            $table->integer('value');
+            $table->foreignId('id_bills')->constrained('bills');
+            $table->foreignId('id_products')->constrained('products');
             $table->timestamps();
         });
     }
