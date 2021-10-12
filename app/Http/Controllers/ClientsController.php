@@ -6,7 +6,35 @@ use Illuminate\Http\Request;
 use App\Models\Clients;
 
 class ClientsController extends Controller
+
 {
+    
+    
+    //METODO INDEX
+    public function index(Request $request){
+        
+        $clients = Clients::get();
+        
+        return ['Clients'=>$clients];
+        
+    }
+    
+    //METODO LIST
+    public function  getData(Request $request)
+    {
+        $buscar=$request->idBuscar;
+        
+        if($buscar==''){
+            $clients = Clients::select('names')->get();
+        }else{
+            $clients = Clients::select('names')->where('id','=',$buscar)->get();
+            
+        }
+        
+        return ['Clients'=>$clients];
+    }
+
+
     //METODO CREATE
     
     public function store(Request $request){
@@ -43,25 +71,5 @@ class ClientsController extends Controller
       
     }
 
-    //METODO SELECT
-    public function index(Request $request){
 
-        $clients = Clients::get();
-
-        return ['Clients'=>$clients];
-     
-    }
-
-      //METODO LIST
-      public function getData(Request $request){
-
-        $buscar=$request->idbuscar;
-
-        if($buscar==''){
-            $clients = Clients::select('names')->get();
-        }else{
-
-        }
-
-    }
 }

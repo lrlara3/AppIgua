@@ -7,6 +7,30 @@ Use App\Models\Inputs;
 
 class InputsController extends Controller
 {
+    
+    //METODO INDEX
+    public function index(Request $request){
+        
+        $inputs = Inputs::get();
+        
+        return ['Inputs'=>$inputs];
+        
+    }
+    
+    //METODO LIST
+     public function  getData(Request $request)
+    {
+        $buscar=$request->idBuscar;
+        
+        if($buscar==''){
+            $inputs = Inputs::select('names')->get();
+        }else{
+            $inputs = Inputs::select('names')->where('id','=',$buscar)->get();
+            
+        }
+        
+        return ['Inputs'=>$inputs];
+    }
     //METODO GUARDAR 
 
     public function store(Request $request){
@@ -33,4 +57,14 @@ class InputsController extends Controller
         $inputs->save();
       
     }
+    //METODO DELETE
+    public function delete(Request $request){
+
+        $inputs= Inputs::findOrFail($request->id);
+        
+        $inputs->delete();
+      
+    }
+    
+
 }

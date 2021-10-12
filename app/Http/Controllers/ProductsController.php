@@ -7,6 +7,30 @@ use App\Models\Products;
 
 class ProductsController extends Controller
 {
+    
+    //METODO INDEX
+    public function index(Request $request){
+        
+        $products = Products::get();
+        
+        return ['Products'=>$products];
+        
+    }
+    
+    //METODO LIST
+    public function  getData(Request $request)
+    {
+        $buscar=$request->idBuscar;
+        
+        if($buscar==''){
+            $products = Products::select('names')->get();
+        }else{
+            $products = Products::select('names')->where('id','=',$buscar)->get();
+            
+        }
+        
+        return ['Products'=>$products];
+    }
     //METODO GUARDAR
     
     public function store(Request $request){
@@ -35,4 +59,14 @@ class ProductsController extends Controller
         $products->save();
       
     }
+    //METODO DELETE
+    public function delete(Request $request){
+
+        $products= Products::findOrFail($request->id);
+        
+        $products->delete();
+      
+    }
+    
+
 }

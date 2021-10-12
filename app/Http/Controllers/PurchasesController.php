@@ -7,6 +7,30 @@ use App\Models\Purchases;
 
 class PurchasesController extends Controller
 {
+    
+    //METODO INDEX
+    public function index(Request $request){
+        
+        $purchases = Purchases::get();
+        
+        return ['Purchases'=>$purchases];
+        
+    }
+    
+    //METODO LIST
+    public function  getData(Request $request)
+    {
+        $buscar=$request->idBuscar;
+        
+        if($buscar==''){
+            $purchases = Purchases::select('names')->get();
+        }else{
+            $purchases = Purchases::select('names')->where('id','=',$buscar)->get();
+            
+        }
+        
+        return ['Purchases'=>$purchases];
+    }
     //METODO GUARDAR
     
     public function store(Request $request){
@@ -29,4 +53,14 @@ class PurchasesController extends Controller
         $purchases->save();
       
     }
+    //METODO DELETE
+    public function delete(Request $request){
+
+        $purchases= Purchases::findOrFail($request->id);
+        
+        $purchases->delete();
+      
+    }
+    
+
 }

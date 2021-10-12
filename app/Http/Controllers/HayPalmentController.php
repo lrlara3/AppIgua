@@ -7,6 +7,30 @@ Use App\Models\HayPalment;
 
 class HayPalmentController extends Controller
 {
+    
+    //METODO INDEX
+    public function index(Request $request){
+        
+        $hayPalment = HayPalment::get();
+        
+        return ['HayPalment'=>$hayPalment];
+        
+    }
+    
+    //METODO LIST
+    public function  getData(Request $request)
+    {
+        $buscar=$request->idBuscar;
+        
+        if($buscar==''){
+            $hayPalment = HayPalment::select('names')->get();
+        }else{
+            $hayPalment = HayPalment::select('names')->where('id','=',$buscar)->get();
+            
+        }
+        
+        return ['HayPalment'=>$hayPalment];
+    }
     //METODO GUARDAR 
 
     public function store(Request $request){
@@ -29,4 +53,14 @@ class HayPalmentController extends Controller
         $hayPalment->save();
       
     }
+    //METODO DELETE
+    public function delete(Request $request){
+
+        $hayPalment= HayPalment::findOrFail($request->id);
+        
+        $hayPalment->delete();
+      
+    }
+    
+
 }
